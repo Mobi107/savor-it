@@ -2,14 +2,18 @@ package com.example.savor_it;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.savor_it.ui.home.HomeViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class EmailPasswordActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
 
@@ -18,6 +22,7 @@ public class EmailPasswordActivity extends AppCompatActivity {
     private TextView mStatusTextView;
     private EditText mEmailField;
     private EditText mPasswordField;
+    private Button mLoginButton;
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -26,7 +31,7 @@ public class EmailPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_emailpassword);
+        setContentView(R.layout.activity_login);
 
         // Views
         mNameTextView = findViewById(R.id.name);
@@ -34,5 +39,17 @@ public class EmailPasswordActivity extends AppCompatActivity {
         mStatusTextView = findViewById(R.id.status);
         mEmailField = findViewById(R.id.fieldEmail);
         mPasswordField = findViewById(R.id.fieldPassword);
+        mLoginButton = findViewById(R.id.login_button);
+
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), MainHomeActivity.class);
+                //Intent intent = new Intent(LoginActivity.this, HomeViewModel.class);
+                startActivity(intent);
+            }
+        });
     }
+
+
 }

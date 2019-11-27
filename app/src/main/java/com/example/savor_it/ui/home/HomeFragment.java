@@ -55,7 +55,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.search_button:
                 fragment = new SearchFragment();
                 replaceFragment(fragment);
-
+                break;
+            case R.id.upload_button:
+                fragment = new UploadFragment();
+                replaceFragment(fragment);
                 break;
 
             //add cases for other buttons and fragments when implemented

@@ -25,14 +25,10 @@ public class SearchFragment extends Fragment {
 
     //replace this with actual images of recipes from drawable
     int[] images = {
-//            R.drawable.friedchicken,
-//            R.drawable.vegrice,
-//            R.drawable.broccolisoup,
-//            R.drawable.meatballs
-            R.drawable.ic_dish,
-            R.drawable.ic_share,
-            R.drawable.ic_request,
-            R.drawable.ic_dish
+            R.drawable.friedchicken,
+            R.drawable.vegrice,
+            R.drawable.broccolisoup,
+            R.drawable.meatballs
     };
 
 
