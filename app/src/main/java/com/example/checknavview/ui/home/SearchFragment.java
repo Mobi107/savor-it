@@ -45,7 +45,7 @@ public class SearchFragment extends Fragment {
         gridView = (GridView) root.findViewById(R.id.grid_view);
 
         //option 1 kept crashing
-        GridAdapter gridAdapter = new GridAdapter(getActivity(), values, images);
+        GridAdapter gridAdapter = new GridAdapter(this.getActivity().getApplicationContext(), values, images);
         gridView.setAdapter(gridAdapter);
 
 

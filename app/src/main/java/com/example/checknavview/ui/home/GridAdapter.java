@@ -47,9 +47,10 @@ public class GridAdapter extends BaseAdapter {
             view = new View(context);
             view = layoutInflater.inflate(R.layout.single_item, null);
             //Change this to image button later (both here and in single_item.xml)
-            ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+            ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
             TextView textView = (TextView) view.findViewById(R.id.textview);
 
+//            imageView.setImageDrawable(this.context.getDrawable(images[position]));
             imageView.setImageResource(images[position]);
             textView.setText(values[position]);
 
