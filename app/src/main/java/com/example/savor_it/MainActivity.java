@@ -1,4 +1,4 @@
-package com.example.checknavview;
+package com.example.savor_it;
 
 import android.os.Bundle;
 

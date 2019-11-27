@@ -1,4 +1,4 @@
-package com.example.checknavview.ui.request;
+package com.example.savor_it.ui.request;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.checknavview.R;
+import com.example.savor_it.R;
 
 public class RequestFragment extends Fragment {
 

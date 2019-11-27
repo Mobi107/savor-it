@@ -1,16 +1,16 @@
-package com.example.checknavview.ui.share;
+package com.example.savor_it.ui.request;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ShareViewModel extends ViewModel {
+public class RequestViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ShareViewModel() {
+    public RequestViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is share fragment");
+        mText.setValue("This is request fragment");
     }
 
     public LiveData<String> getText() {

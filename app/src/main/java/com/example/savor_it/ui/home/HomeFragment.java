@@ -1,4 +1,4 @@
-package com.example.checknavview.ui.home;
+package com.example.savor_it.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 //import androidx.lifecycle.Observer;
 //import androidx.lifecycle.ViewModelProviders;
 
-import com.example.checknavview.R;
+import com.example.savor_it.R;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 

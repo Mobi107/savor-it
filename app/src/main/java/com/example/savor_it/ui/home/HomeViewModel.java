@@ -1,16 +1,16 @@
-package com.example.checknavview.ui.request;
+package com.example.savor_it.ui.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class RequestViewModel extends ViewModel {
+public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public RequestViewModel() {
+    public HomeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is request fragment");
+        mText.setValue("This is home fragment");
     }
 
     public LiveData<String> getText() {

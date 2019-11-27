@@ -1,4 +1,4 @@
-package com.example.checknavview.ui.home;
+package com.example.savor_it.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.GridView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.checknavview.R;
+import com.example.savor_it.R;
 
 public class SearchFragment extends Fragment {
 

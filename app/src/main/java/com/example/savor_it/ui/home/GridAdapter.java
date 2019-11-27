@@ -1,4 +1,4 @@
-package com.example.checknavview.ui.home;
+package com.example.savor_it.ui.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.checknavview.R;
+import com.example.savor_it.R;
 
 public class GridAdapter extends BaseAdapter {
 
