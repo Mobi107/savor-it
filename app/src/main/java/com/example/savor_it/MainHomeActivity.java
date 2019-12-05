@@ -1,9 +1,15 @@
 package com.example.savor_it;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 
 
-
+import androidx.annotation.AnyRes;
+import androidx.annotation.NonNull;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,8 +19,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.LinearLayout;
 
+import com.example.savor_it.model.Recipe;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainHomeActivity extends AppCompatActivity {
@@ -53,5 +63,26 @@ public class MainHomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public static final Uri getUriToResource(@NonNull Context context, @AnyRes int resId) throws Resources.NotFoundException{
+        Resources res = context.getResources();
+
+        return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" +res.getResourcePackageName(resId)
+                +'/'+ res.getResourceTypeName(resId)
+                + '/' +res.getResourceEntryName(resId)
+        );
+    }
+
+    public void viewEventDetails(View view) {
+        if (view instanceof LinearLayout) {
+            LinearLayout selectedLayout = (LinearLayout) view;
+            Recipe selectedEvent = (Recipe) selectedLayout.getTag();
+            Log.i("Recipe", selectedEvent.toString());
+            Intent detailsIntent = new Intent(this, RecipeDetailsActivity.class);
+            detailsIntent.putExtra("SelectedRecipe", selectedEvent);
+            startActivity(detailsIntent);
+        }
     }
 }

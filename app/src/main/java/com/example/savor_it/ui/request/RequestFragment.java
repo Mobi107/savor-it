@@ -23,7 +23,7 @@ public class RequestFragment extends Fragment {
         requestViewModel =
                 ViewModelProviders.of(this).get(RequestViewModel.class);
         View root = inflater.inflate(R.layout.fragment_request, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
+        final TextView textView = root.findViewById(R.id.textView);
         requestViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
