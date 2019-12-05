@@ -19,6 +19,9 @@ public class Recipe implements Parcelable {
     private String title;
     private Uri photo;
     private List<RecipeDetails> detailsList;
+    private List<String> ingredients;
+    private List<String> steps;
+    private List<String> audioFilename;
 
 
     public Recipe() {}
@@ -50,6 +53,9 @@ public class Recipe implements Parcelable {
         groupIds = in.createStringArrayList();
         title = in.readString();
         photo = in.readParcelable(Uri.class.getClassLoader());
+        ingredients = in.createStringArrayList();
+        steps = in.createStringArrayList();
+        audioFilename = in.createStringArrayList();
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -116,6 +122,38 @@ public class Recipe implements Parcelable {
         this.detailsList.add(recipeDetails);
     }
 
+    public int getmId() {
+        return mId;
+    }
+
+    public void setmId(int mId) {
+        this.mId = mId;
+    }
+
+    public List<String> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<String> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
+    }
+
+    public List<String> getAudioFilename() {
+        return audioFilename;
+    }
+
+    public void setAudioFilename(List<String> audioFilename) {
+        this.audioFilename = audioFilename;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -129,5 +167,8 @@ public class Recipe implements Parcelable {
         dest.writeStringList(groupIds);
         dest.writeString(title);
         dest.writeParcelable(photo, flags);
+        dest.writeStringList(ingredients);
+        dest.writeStringList(steps);
+        dest.writeStringList(audioFilename);
     }
 }

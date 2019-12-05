@@ -26,6 +26,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.savor_it.R;
+import com.example.savor_it.model.Recipe;
+import com.example.savor_it.model.RecipeDetails;
 
 import java.util.ArrayList;
 
@@ -44,6 +46,7 @@ public class UploadFragment extends Fragment {
     ArrayList<String> steps;
     ImageView imageView;
     private Uri imageUri;
+    Recipe recipe;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,9 +68,9 @@ public class UploadFragment extends Fragment {
         steps = new ArrayList<>();
         stepsAdapter = new ArrayAdapter<>(this.getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, steps);
         secondListView.setAdapter(stepsAdapter);
+        recipe = new Recipe();
 
         onAddButtonClick();
-
         return root;
     }
 
@@ -78,6 +81,7 @@ public class UploadFragment extends Fragment {
                 String result = et.getText().toString();
                 ingredients.add(result);
                 ingredientsAdapter.notifyDataSetChanged();
+                recipe.setIngredients(ingredients);
             }
         });
 
@@ -87,6 +91,7 @@ public class UploadFragment extends Fragment {
                 String result = step.getText().toString();
                 steps.add(result);
                 stepsAdapter.notifyDataSetChanged();
+                recipe.setSteps(steps);
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -150,8 +155,10 @@ public class UploadFragment extends Fragment {
             // Set the imageURI to the data
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
+            recipe.setPhoto(imageUri);
         }
     }
+    
 
 
 }
