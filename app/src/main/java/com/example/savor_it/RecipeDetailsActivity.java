@@ -63,12 +63,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         stepsAdapter = new ArrayAdapter<>(this.getApplicationContext(), android.R.layout.simple_list_item_1, steps);
         stepsListView.setAdapter(stepsAdapter);
         mSeekBar = new SeekBar(this.getApplicationContext());
-
-        //Need an actual filename from the recipe model itself
-        // Record to the external cache directory for visibility
-        fileName = getExternalCacheDir().getAbsolutePath();
-        fileName += "/audiorecordtest.3gp";
-
+        
         playButton = (ImageButton) findViewById(R.id.play_button);
         stopButton = (ImageButton) findViewById(R.id.stop_button);
 
@@ -90,10 +85,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
     private void startPlaying() {
         mMediaPlayer = new MediaPlayer();
-        String url = "http://docs.google.com/uc?export=download&id=1XIEMAfrkFRfpl4XtQ7RFKvLElQNFgu-o";
+        String filename = selectedRecipe.getAudioFilename();
         try {
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mMediaPlayer.setDataSource(url);
+            mMediaPlayer.setDataSource(filename);
             mMediaPlayer.prepare();
             mMediaPlayer.start();
             setSeekBar();
