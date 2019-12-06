@@ -63,6 +63,11 @@ public class LoginActivity extends AppCompatActivity {
         if (view instanceof Button) {
             String email = mEmailField.getText().toString();
             String password = mPasswordField.getText().toString();
+            if (email.equals("") || password.equals("")) {
+                Toast.makeText(LoginActivity.this, "Email and password cannot be empty",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
