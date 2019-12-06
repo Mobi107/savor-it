@@ -29,6 +29,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.savor_it.MainHomeActivity;
 import com.example.savor_it.R;
 import com.example.savor_it.model.Recipe;
 import com.example.savor_it.model.RecipeDetails;
@@ -37,6 +38,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class UploadFragment extends Fragment {
+
 
     private static final int REQUEST_CODE_PHOTO = 100;
     EditText et;
@@ -79,7 +81,7 @@ public class UploadFragment extends Fragment {
         recordButton = (ImageButton) root.findViewById(R.id.record_button);
         stopButton = (ImageButton) root.findViewById(R.id.stop_btn);
         saveButton = (Button) root.findViewById(R.id.save_btn);
-
+        ActivityCompat.requestPermissions(getActivity(), permissions, REQUEST_RECORD_AUDIO_PERMISSION);
         ingredients = new ArrayList<>();
         ingredientsAdapter = new ArrayAdapter<>(this.getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, ingredients);
         listView.setAdapter(ingredientsAdapter);
@@ -110,8 +112,15 @@ public class UploadFragment extends Fragment {
             public void onClick(View view) {
                 //save to the database
                 recipe.setAudioFilename(fileName);
+                MainHomeActivity activity = (MainHomeActivity) getActivity();
+                recipe.setTitle(nameText.getText().toString());
+                saveButton.setTag(recipe);
+                activity.uploadRecipe(saveButton);
+
+
             }
         });
+
 
         return root;
     }
@@ -146,7 +155,7 @@ public class UploadFragment extends Fragment {
                 steps.add(result);
                 stepsAdapter.notifyDataSetChanged();
                 recipe.setSteps(steps);
-            }
+                    }
         });
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,7 +211,7 @@ public class UploadFragment extends Fragment {
 
     private void startRecording() {
         fileName = getActivity().getExternalCacheDir().getAbsolutePath();
-        fileName += "/" + nameText.getText() + ".3gp";
+        fileName += "/" + nameText.getText().toString() + ".3gp";
         //fileName += "/audiorecordtest.3gp";
 
 
@@ -225,6 +234,7 @@ public class UploadFragment extends Fragment {
     private void stopRecording() {
         mediaRecorder.stop();
         mediaRecorder.release();
+        recipe.setAudioFilename(fileName);
         mediaRecorder = null;
     }
 
@@ -240,7 +250,6 @@ public class UploadFragment extends Fragment {
             recipe.setPhoto(imageUri);
         }
     }
-    
 
 
 }

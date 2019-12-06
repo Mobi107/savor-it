@@ -22,18 +22,24 @@ import androidx.navigation.ui.NavigationUI;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.savor_it.model.Recipe;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainHomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    FirebaseFirestore mFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirestore = FirebaseFirestore.getInstance();
+
         setContentView(R.layout.activity_mainhome);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,6 +89,15 @@ public class MainHomeActivity extends AppCompatActivity {
             Intent detailsIntent = new Intent(this, RecipeDetailsActivity.class);
             detailsIntent.putExtra("SelectedRecipe", selectedEvent);
             startActivity(detailsIntent);
+        }
+    }
+
+    public void uploadRecipe(View view) {
+        if (view instanceof Button) {
+            Button saveBtn = (Button) view;
+            Recipe selectedRecipe = (Recipe) saveBtn.getTag();
+            Log.i("Recipe", selectedRecipe.toString());
+            mFirestore.collection("recipe").add(selectedRecipe);
         }
     }
 }
