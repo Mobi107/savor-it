@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Recipe implements Parcelable {
@@ -19,8 +20,9 @@ public class Recipe implements Parcelable {
     private String title;
     private Uri photo;
     private List<RecipeDetails> detailsList;
-    private List<String> ingredients;
-    private List<String> steps;
+    //Default for now, get rid of later
+    private List<String> ingredients = Arrays.asList("Fruit", "Sugar");
+    private List<String> steps = Arrays.asList("Cook food", "Get food");
     private List<String> audioFilename;
 
 
