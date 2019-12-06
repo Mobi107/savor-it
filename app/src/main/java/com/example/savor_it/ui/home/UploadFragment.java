@@ -2,11 +2,9 @@ package com.example.savor_it.ui.home;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,8 +20,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -31,8 +27,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.savor_it.R;
 import com.example.savor_it.model.Recipe;
-import com.example.savor_it.model.RecipeDetails;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -62,6 +56,7 @@ public class UploadFragment extends Fragment {
     private ImageButton recordButton;
     private ImageButton stopButton;
     private Button saveButton;
+    private boolean recording = true;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -89,12 +84,21 @@ public class UploadFragment extends Fragment {
         secondListView.setAdapter(stepsAdapter);
         recipe = new Recipe();
 
+        ActivityCompat.requestPermissions(getActivity(), permissions, REQUEST_RECORD_AUDIO_PERMISSION);
         onAddButtonClick();
 
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startRecording();
+                if (recording) {
+                    changeButtonToStop();
+                    startRecording();
+                    recording = false;
+                } else {
+                    changeButtonToRecord();
+                    stopRecording();
+                    recording = true;
+                }
             }
         });
 
@@ -114,6 +118,14 @@ public class UploadFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void changeButtonToRecord() {
+        recordButton.setImageResource(R.drawable.record);
+    }
+
+    private void changeButtonToStop() {
+        recordButton.setImageResource(R.drawable.stop);
     }
 
     @Override
@@ -240,7 +252,5 @@ public class UploadFragment extends Fragment {
             recipe.setPhoto(imageUri);
         }
     }
-    
-
 
 }

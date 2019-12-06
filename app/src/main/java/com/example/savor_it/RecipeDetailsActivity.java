@@ -63,7 +63,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         stepsAdapter = new ArrayAdapter<>(this.getApplicationContext(), android.R.layout.simple_list_item_1, steps);
         stepsListView.setAdapter(stepsAdapter);
         mSeekBar = new SeekBar(this.getApplicationContext());
-        
+
         playButton = (ImageButton) findViewById(R.id.play_button);
         stopButton = (ImageButton) findViewById(R.id.stop_button);
 
