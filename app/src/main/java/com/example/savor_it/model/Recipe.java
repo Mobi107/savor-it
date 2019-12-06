@@ -23,7 +23,7 @@ public class Recipe implements Parcelable {
     //Default for now, get rid of later
     private List<String> ingredients = Arrays.asList("Fruit", "Sugar");
     private List<String> steps = Arrays.asList("Cook food", "Get food");
-    private List<String> audioFilename;
+    private String audioFilename;
 
 
     public Recipe() {}
@@ -57,7 +57,7 @@ public class Recipe implements Parcelable {
         photo = in.readParcelable(Uri.class.getClassLoader());
         ingredients = in.createStringArrayList();
         steps = in.createStringArrayList();
-        audioFilename = in.createStringArrayList();
+        audioFilename = in.readString();
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -148,11 +148,11 @@ public class Recipe implements Parcelable {
         this.steps = steps;
     }
 
-    public List<String> getAudioFilename() {
+    public String getAudioFilename() {
         return audioFilename;
     }
 
-    public void setAudioFilename(List<String> audioFilename) {
+    public void setAudioFilename(String audioFilename) {
         this.audioFilename = audioFilename;
     }
 
@@ -171,6 +171,6 @@ public class Recipe implements Parcelable {
         dest.writeParcelable(photo, flags);
         dest.writeStringList(ingredients);
         dest.writeStringList(steps);
-        dest.writeStringList(audioFilename);
+        dest.writeString(audioFilename);
     }
 }

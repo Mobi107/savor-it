@@ -1,20 +1,24 @@
 package com.example.savor_it.ui.home;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,6 +33,7 @@ import com.example.savor_it.R;
 import com.example.savor_it.model.Recipe;
 import com.example.savor_it.model.RecipeDetails;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class UploadFragment extends Fragment {
@@ -36,6 +41,7 @@ public class UploadFragment extends Fragment {
     private static final int REQUEST_CODE_PHOTO = 100;
     EditText et;
     EditText step;
+    EditText nameText;
     Button add_btn;
     Button second_add_btn;
     ListView listView;
@@ -47,6 +53,15 @@ public class UploadFragment extends Fragment {
     ImageView imageView;
     private Uri imageUri;
     Recipe recipe;
+    private MediaRecorder mediaRecorder;
+    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
+    private boolean permissionToRecordAccepted = false;
+    private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+    private static String fileName = null;
+    private static final String LOG_TAG = "AudioRecordTest";
+    private ImageButton recordButton;
+    private ImageButton stopButton;
+    private Button saveButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,11 +70,15 @@ public class UploadFragment extends Fragment {
 
         et = (EditText) root.findViewById(R.id.addIngredient);
         step = (EditText) root.findViewById(R.id.addStep);
+        nameText = (EditText) root.findViewById(R.id.editText2);
         add_btn = (Button) root.findViewById(R.id.add_btn);
         second_add_btn = (Button) root.findViewById(R.id.add_step_btn);
         listView = (ListView) root.findViewById(R.id.listView);
         secondListView = (ListView) root.findViewById(R.id.add_step_list_view);
         imageView = root.findViewById(R.id.imageView2);
+        recordButton = (ImageButton) root.findViewById(R.id.record_button);
+        stopButton = (ImageButton) root.findViewById(R.id.stop_btn);
+        saveButton = (Button) root.findViewById(R.id.save_btn);
 
         ingredients = new ArrayList<>();
         ingredientsAdapter = new ArrayAdapter<>(this.getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, ingredients);
@@ -71,7 +90,42 @@ public class UploadFragment extends Fragment {
         recipe = new Recipe();
 
         onAddButtonClick();
+
+        recordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startRecording();
+            }
+        });
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopRecording();
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //save to the database
+                recipe.setAudioFilename(fileName);
+            }
+        });
+
         return root;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case REQUEST_RECORD_AUDIO_PERMISSION:
+                permissionToRecordAccepted  = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                break;
+        }
+        if (!permissionToRecordAccepted ) return;
+
     }
 
     public void onAddButtonClick() {
@@ -144,6 +198,34 @@ public class UploadFragment extends Fragment {
                     "OCC Community Service Hours requires camera and external storage permission",
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void startRecording() {
+        fileName = getActivity().getExternalCacheDir().getAbsolutePath();
+        fileName += "/" + nameText.getText() + ".3gp";
+        //fileName += "/audiorecordtest.3gp";
+
+
+        System.out.println("Here's the file name" + fileName);
+        mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mediaRecorder.setOutputFile(fileName);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            mediaRecorder.prepare();
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "prepare() failed");
+        }
+
+        mediaRecorder.start();
+    }
+
+    private void stopRecording() {
+        mediaRecorder.stop();
+        mediaRecorder.release();
+        mediaRecorder = null;
     }
 
     @Override
