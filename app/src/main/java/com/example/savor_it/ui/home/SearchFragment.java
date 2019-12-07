@@ -21,7 +21,7 @@ import java.util.List;
 public class SearchFragment extends Fragment {
 
     GridView gridView;
-
+    GridAdapter gridAdapter;
     //replace this hardcoded array with actual uploaded recipe titles
     String[] values = {
             "Fried Chicken",
@@ -51,15 +51,18 @@ public class SearchFragment extends Fragment {
         gridView = (GridView) root.findViewById(R.id.grid_view);
 
         allRecipesList = new ArrayList<>();
-        allRecipesList.add(new Recipe(1, "a", "Mom", "Fried Chicken",  MainHomeActivity.getUriToResource(context,R.drawable.friedchicken)));
-        allRecipesList.add(new Recipe(2, "a", "Mom", "Veg Rice",  MainHomeActivity.getUriToResource(context,R.drawable.vegrice)));
-        allRecipesList.add(new Recipe(3, "a", "Mom", "Broccoli Soup",  MainHomeActivity.getUriToResource(context,R.drawable.broccolisoup)));
-        allRecipesList.add(new Recipe(4, "a", "Mom", "Meatballs",  MainHomeActivity.getUriToResource(context,R.drawable.meatballs)));
+//        allRecipesList.add(new Recipe(1, "a", "Mom", "Fried Chicken",  MainHomeActivity.getUriToResource(context,R.drawable.friedchicken).toString()));
+//        allRecipesList.add(new Recipe(2, "a", "Mom", "Veg Rice",  MainHomeActivity.getUriToResource(context,R.drawable.vegrice).toString()));
+//        allRecipesList.add(new Recipe(3, "a", "Mom", "Broccoli Soup",  MainHomeActivity.getUriToResource(context,R.drawable.broccolisoup).toString()));
+//        allRecipesList.add(new Recipe(4, "a", "Mom", "Meatballs",  MainHomeActivity.getUriToResource(context,R.drawable.meatballs).toString()));
 
+        MainHomeActivity activity = (MainHomeActivity) getActivity();
+//        activity.uploadMockRecipes(allRecipesList);
+        gridAdapter = new GridAdapter(context, allRecipesList);
+        activity.loadAllRecipes(allRecipesList, gridAdapter);
         //option 1 kept crashing
-        GridAdapter gridAdapter = new GridAdapter(context, allRecipesList);
-        gridView.setAdapter(gridAdapter);
 
+        gridView.setAdapter(gridAdapter);
 
 
         return root;

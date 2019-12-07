@@ -58,7 +58,7 @@ public class GridAdapter extends BaseAdapter {
             recipeOwnerImageView.setImageResource(R.drawable.ic_perm_identity);
             TextView ownerTextView = view.findViewById(R.id.recipeOwnerNameTextView);
             ownerTextView.setText(currRecipe.getOwnerName());
-            imageView.setImageURI(currRecipe.getPhoto());
+            imageView.setImageURI(currRecipe.getPhoto(currRecipe));
             LinearLayout recipeGridItemLayout = view.findViewById(R.id.recipeGridItemLayout);
             recipeGridItemLayout.setTag(currRecipe);
 //            imageView.setImageDrawable(this.context.getDrawable());

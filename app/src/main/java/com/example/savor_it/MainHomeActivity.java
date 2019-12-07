@@ -26,9 +26,18 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.savor_it.model.Recipe;
+import com.example.savor_it.ui.home.GridAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainHomeActivity extends AppCompatActivity {
 
@@ -98,6 +107,32 @@ public class MainHomeActivity extends AppCompatActivity {
             Recipe selectedRecipe = (Recipe) saveBtn.getTag();
             Log.i("Recipe", selectedRecipe.toString());
             mFirestore.collection("recipe").add(selectedRecipe);
+            Intent detailsIntent = new Intent(this, RecipeDetailsActivity.class);
+            detailsIntent.putExtra("SelectedRecipe", selectedRecipe);
+            startActivity(detailsIntent);
         }
+    }
+
+    public void uploadMockRecipes(List<Recipe> recipeList) {
+        for (Recipe recipe: recipeList) {
+            mFirestore.collection("recipe").add(recipe);
+        }
+    }
+
+    public void loadAllRecipes(final List<Recipe> recipes, final GridAdapter gridAdapter) {
+        //asynchronously retrieve multiple documents
+          final Task<QuerySnapshot> result =  mFirestore.collection("recipe").get();
+          result.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+              @Override
+              public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                  List<DocumentSnapshot> documents = result.getResult().getDocuments();
+                  for (DocumentSnapshot document : documents) {
+                      recipes.add(document.toObject(Recipe.class));
+                  }
+                  gridAdapter.notifyDataSetChanged();
+              }
+
+          });
+
     }
 }

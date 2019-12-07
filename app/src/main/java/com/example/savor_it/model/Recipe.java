@@ -18,8 +18,7 @@ public class Recipe implements Parcelable {
     private String ownerName;
     private List<String> groupIds;
     private String title;
-    private Uri photo;
-    private List<RecipeDetails> detailsList;
+    private String photoURI;
     //Default for now, get rid of later
     private List<String> ingredients = Arrays.asList("Fruit", "Sugar");
     private List<String> steps = Arrays.asList("Cook food", "Get food");
@@ -28,12 +27,14 @@ public class Recipe implements Parcelable {
 
     public Recipe() {}
 
-    public Recipe(int mId, String ownerId, String ownerName, String title, Uri photo) {
+
+
+    public Recipe(int mId, String ownerId, String ownerName, String title, String photoUri) {
         this.mId = mId;
         this.ownerId = ownerId;
         this.ownerName = ownerName;
         this.title = title;
-        this.photo = photo;
+        this.photoURI = photoUri;
     }
 
     public Recipe(FirebaseUser user, String title) {
@@ -44,9 +45,9 @@ public class Recipe implements Parcelable {
         }
 
         this.title = title;
-        detailsList = new ArrayList<>();
         groupIds = new ArrayList<>();
     }
+
 
     protected Recipe(Parcel in) {
         mId = in.readInt();
@@ -54,7 +55,7 @@ public class Recipe implements Parcelable {
         ownerName = in.readString();
         groupIds = in.createStringArrayList();
         title = in.readString();
-        photo = in.readParcelable(Uri.class.getClassLoader());
+        photoURI = in.readString();
         ingredients = in.createStringArrayList();
         steps = in.createStringArrayList();
         audioFilename = in.readString();
@@ -104,25 +105,6 @@ public class Recipe implements Parcelable {
         this.title = title;
     }
 
-    public Uri getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Uri photo) {
-        this.photo = photo;
-    }
-
-    public List<RecipeDetails> getDetailsList() {
-        return detailsList;
-    }
-
-    public void setDetailsList(List<RecipeDetails> detailsList) {
-        this.detailsList = detailsList;
-    }
-
-    public void addRecipeDetails(RecipeDetails recipeDetails) {
-        this.detailsList.add(recipeDetails);
-    }
 
     public int getmId() {
         return mId;
@@ -168,9 +150,25 @@ public class Recipe implements Parcelable {
         dest.writeString(ownerName);
         dest.writeStringList(groupIds);
         dest.writeString(title);
-        dest.writeParcelable(photo, flags);
+        dest.writeString(photoURI);
         dest.writeStringList(ingredients);
         dest.writeStringList(steps);
         dest.writeString(audioFilename);
+    }
+
+    public static Uri getPhoto(Recipe recipe) {
+        return Uri.parse(recipe.photoURI);
+    }
+
+    public String getPhotoURI() {
+        return photoURI;
+    }
+
+    public void setPhotoURI(String photoURI) {
+        this.photoURI = photoURI;
+    }
+
+    public static Creator<Recipe> getCREATOR() {
+        return CREATOR;
     }
 }

@@ -56,14 +56,12 @@
         android:id="@+id/save_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
         android:layout_marginBottom="16dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stop_btn" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/add_step_btn"
@@ -112,27 +110,14 @@
         android:id="@+id/record_button"
         android:layout_width="44dp"
         android:layout_height="59dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="68dp"
         android:adjustViewBounds="true"
         android:background="#0000"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:srcCompat="@drawable/record" />
-
-    <ImageButton
-        android:id="@+id/stop_btn"
-        android:layout_width="40dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="70dp"
-        android:adjustViewBounds="true"
-        android:background="#0000"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/record_button"
-        app:srcCompat="@drawable/stop" />
 
     <TextView
         android:id="@+id/textView3"
