@@ -5,7 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.google.firebase.auth.FirebaseUser;
+//import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,16 +37,16 @@ public class Recipe implements Parcelable {
         this.photoURI = photoUri;
     }
 
-    public Recipe(FirebaseUser user, String title) {
-        this.ownerId = user.getUid();
-        this.ownerName = user.getDisplayName();
-        if (TextUtils.isEmpty(this.ownerName)) {
-            this.ownerName = user.getEmail();
-        }
-
-        this.title = title;
-        groupIds = new ArrayList<>();
-    }
+//    public Recipe(FirebaseUser user, String title) {
+//        this.ownerId = user.getUid();
+//        this.ownerName = user.getDisplayName();
+//        if (TextUtils.isEmpty(this.ownerName)) {
+//            this.ownerName = user.getEmail();
+//        }
+//
+//        this.title = title;
+//        groupIds = new ArrayList<>();
+//    }
 
 
     protected Recipe(Parcel in) {

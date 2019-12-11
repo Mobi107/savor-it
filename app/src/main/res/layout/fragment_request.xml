@@ -24,7 +24,7 @@
         android:ems="10"
         android:hint="Recipe Name"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="Recipe name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
@@ -33,7 +33,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="166dp"
-        tools:layout_editor_absoluteY="449dp" />
+        android:text="Request"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        tools:layout_editor_absoluteX="166dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

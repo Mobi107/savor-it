@@ -26,24 +26,26 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.savor_it.model.Recipe;
+import com.example.savor_it.model.Request;
 import com.example.savor_it.ui.home.GridAdapter;
+import com.example.savor_it.ui.request.RecipeRequestFragment;
+import com.example.savor_it.ui.request.dummy.DummyContent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.example.savor_it.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainHomeActivity extends AppCompatActivity {
+public class MainHomeActivity extends AppCompatActivity implements RecipeRequestFragment.OnListFragmentInteractionListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseFirestore mFirestore;
-
+    List<User> users;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,8 @@ public class MainHomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        // buffering no more than 1000 users in memory at a time.
+
     }
 
     @Override
@@ -133,6 +137,17 @@ public class MainHomeActivity extends AppCompatActivity {
               }
 
           });
+
+    }
+
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(Request request) {
 
     }
 }

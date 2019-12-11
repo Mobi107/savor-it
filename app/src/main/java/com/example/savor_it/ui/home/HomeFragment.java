@@ -16,6 +16,8 @@ import androidx.fragment.app.FragmentTransaction;
 //import androidx.lifecycle.ViewModelProviders;
 
 import com.example.savor_it.R;
+import com.example.savor_it.ui.request.RecipeRequestFragment;
+import com.example.savor_it.ui.request.RequestFragment;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -60,7 +62,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 fragment = new UploadFragment();
                 replaceFragment(fragment);
                 break;
-
+            case R.id.request_button:
+                fragment = new RecipeRequestFragment();
+                replaceFragment(fragment);
+                break;
             //add cases for other buttons and fragments when implemented
         }
     }
